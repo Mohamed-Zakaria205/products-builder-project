@@ -1,7 +1,7 @@
 import Image from "./Image";
-import type { IProduct } from "../../interfaces";
-import Button from "./Button";
-import { txtSlicer } from "../../utils/functions";
+import type { IProduct } from "../interfaces";
+import Button from "./ui/Button";
+import { txtSlicer } from "../utils/functions";
 interface IProps {
   product: IProduct;
 }
@@ -15,8 +15,10 @@ const ProductCard = ({ product }: IProps) => {
         alt={title}
         className="rounded-md mb-2 w-full h-52 lg:object-cover"
       />
-      <h3> {title}</h3>
-      <p>{txtSlicer(description)}</p>
+      <h3 className="text-center font-semibold mb-3 ">
+        {txtSlicer(title, 25)}
+      </h3>
+      <p className="text-xm text-gray-500">{txtSlicer(description)}</p>
       <div className="flex items-center my-4 space-x-2">
         <span className="w-5 h-5 bg-indigo-600 rounded-full cursor-pointer" />
         <span className="w-5 h-5 bg-amber-300 rounded-full cursor-pointer" />
@@ -32,9 +34,9 @@ const ProductCard = ({ product }: IProps) => {
         />
       </div>
 
-      <div className="flex items-center justify-between text-white space-x-2 my-4">
+      <div className="flex items-center justify-between text-white space-x-2 mt-4">
         <Button
-          className="bg-red-400"
+          className="bg-red-600"
           width="w-full"
           onClick={() => {
             console.log("Clicked");
@@ -42,7 +44,7 @@ const ProductCard = ({ product }: IProps) => {
         >
           Delete
         </Button>
-        <Button className="bg-indigo-400" width="w-full">
+        <Button className="bg-indigo-600" width="w-full">
           Edit
         </Button>
       </div>

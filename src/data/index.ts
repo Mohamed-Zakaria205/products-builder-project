@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import type { IProduct } from "../interfaces";
+import type { IFormInputs } from "../interfaces";
 
 export const productList: IProduct[] = [
   {
@@ -122,5 +123,46 @@ export const productList: IProduct[] = [
       imageURL:
         "https://i5.walmartimages.com/seo/Canon-EOS-R6-Digital-camera-mirrorless-20-1-MP-Full-Frame-4K-60-fps-4-3x-optical-zoom-RF-24-105mm-F4-L-USM-lens-Wi-Fi-Bluetooth-black_e40bbfc6-303e-4f59-9e3c-d2ab35a167d2.6bf6d539b19e2599c22bbf45c0891fac.jpeg",
     },
+  },
+  {
+    id: uuid(),
+    title: "Nintendo Switch OLED",
+    description:
+      "Hybrid gaming console with a vibrant OLED screen and versatile play modes.",
+    imageURL: "https://images.unsplash.com/photo-1612810806695-30f7a8258391",
+    price: "28000",
+    colors: ["#e11d48", "#0f172a", "#f8fafc"],
+    category: {
+      name: "Gaming",
+      imageURL: "https://images.unsplash.com/photo-1612810806695-30f7a8258391",
+    },
+  },
+];
+
+export const formInputsList: IFormInputs[] = [
+  {
+    label: "Product Title",
+    name: "title",
+    id: "title",
+    type: "text",
+  },
+  {
+    label: " Product Description",
+    name: "description",
+    id: "description",
+    type: "text",
+  },
+  {
+    label: "Product image URL",
+    name: "imageURL",
+    id: "image",
+    type: "text",
+  },
+
+  {
+    label: "Product Price",
+    name: "price",
+    id: "price",
+    type: "text",
   },
 ];

@@ -4,18 +4,32 @@ import Modal from "./components/ui/Modal";
 import { formInputsList, productList } from "./data";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
+import type { IProduct } from "./interfaces";
 function App() {
   //**------------STATE--------- */
   const [isOpen, setIsOpen] = useState(false);
+  const [products, setProducts] = useState<IProduct>({
+    title: "",
+    description: "",
+    price: "",
+    imageURL: "",
+    colors: [],
+    category: { name: "", imageURL: "" },
+  });
 
   //**------------HANDLER--------- */
-  function open() {
+  const open = () => {
     setIsOpen(true);
-  }
+  };
 
-  function close() {
+  const close = () => {
     setIsOpen(false);
-  }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setProducts({ ...products, [name]: value });
+  };
 
   //**------------RENDER--------- */
   const renderProducts = productList.map((product) => (
@@ -27,7 +41,21 @@ function App() {
       <label htmlFor={input.id} className=" font-medium text-gray-700 text-sm">
         {input.label}
       </label>
-      <Input type={input.type} name={input.name} id={input.id} />
+      {/* LINE BELOW IS WRONG NOW FIX IT! */}
+      {/* <Input
+        type={input.type}
+        name={input.name}
+        id={input.id}
+        value={products[]}
+        onChange={handleChange}
+      /> */}
+      <Input
+        type={input.type}
+        name={input.name}
+        id={input.id}
+        value={""}
+        onChange={handleChange}
+      />
     </div>
   ));
   return (
@@ -44,7 +72,7 @@ function App() {
           {renderProducts}
         </div>
 
-        <Moda isOpen={isOpen} close={close} title="ADD A NEW PRODUCT">
+        <Modal isOpen={isOpen} close={close} title="ADD A NEW PRODUCT">
           <form className="space-y-3">
             {renderFormInputList}
             <div className="flex items-center space-x-3 text-white ">
@@ -59,7 +87,7 @@ function App() {
               </Button>
             </div>
           </form>
-        </Moda>
+        </Modal>
       </main>
     </>
   );

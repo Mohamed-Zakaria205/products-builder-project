@@ -15,5 +15,5 @@ export interface IFormInputs {
   label: string;
   type: string;
   id: string;
-  name: string;
+  name: "title" | "description" | "price" | "imageURL";
 }

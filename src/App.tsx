@@ -8,7 +8,7 @@ import type { IProduct } from "./interfaces";
 function App() {
   //**------------STATE--------- */
   const [isOpen, setIsOpen] = useState(false);
-  const [products, setProducts] = useState<IProduct>({
+  const [product, setProducts] = useState<IProduct>({
     title: "",
     description: "",
     price: "",
@@ -28,9 +28,10 @@ function App() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProducts({ ...products, [name]: value });
+    setProducts({ ...product, [name]: value });
   };
 
+  console.log(product);
   //**------------RENDER--------- */
   const renderProducts = productList.map((product) => (
     <ProductCard key={product.id} product={product} />
@@ -41,19 +42,12 @@ function App() {
       <label htmlFor={input.id} className=" font-medium text-gray-700 text-sm">
         {input.label}
       </label>
-      {/* LINE BELOW IS WRONG NOW FIX IT! */}
-      {/* <Input
-        type={input.type}
-        name={input.name}
-        id={input.id}
-        value={products[]}
-        onChange={handleChange}
-      /> */}
+
       <Input
         type={input.type}
         name={input.name}
         id={input.id}
-        value={""}
+        value={product[input.name]}
         onChange={handleChange}
       />
     </div>

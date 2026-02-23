@@ -10,7 +10,7 @@ export const productList: IProduct[] = [
       "A luxury compact SUV offering elegant design, advanced tech, and a smooth driving experience.",
     imageURL: "https://images.unsplash.com/photo-1583121274602-3e2820c69888",
     price: "500000",
-    colors: ["#FF0032", "#2563eb", "#FF6E31"],
+    colors: ["#ef4444", "#3b82f6", "#f97316"],
     category: {
       name: "Cars",
       imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",
@@ -24,7 +24,7 @@ export const productList: IProduct[] = [
       "An all-electric sedan with extreme performance, cutting-edge technology, and long range.",
     imageURL: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a",
     price: "850000",
-    colors: ["#000000", "#ffffff", "#9ca3af"],
+    colors: ["#111827", "#dbeafe", "#60a5fa"],
     category: {
       name: "Cars",
       imageURL: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d",
@@ -38,7 +38,7 @@ export const productList: IProduct[] = [
       "Powerful laptop designed for professionals with incredible performance and battery life.",
     imageURL: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
     price: "120000",
-    colors: ["#111827", "#6b7280", "#d1d5db"],
+    colors: ["#0f172a", "#94a3b8", "#cbd5e1"],
     category: {
       name: "Laptops",
       imageURL: "https://images.unsplash.com/photo-1518770660439-4636190af475",
@@ -53,7 +53,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://buy.gazelle.com/cdn/shop/files/iPhone_15_Pro_Max_-_Blue_titanium-_Overlap_Trans-cropped.jpg?v=1757425930&width=1946",
     price: "65000",
-    colors: ["#0f172a", "#64748b", "#e5e7eb"],
+    colors: ["#334155", "#7c3aed", "#e2e8f0"],
     category: {
       name: "Mobiles",
       imageURL:
@@ -69,7 +69,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://d1ncau8tqf99kp.cloudfront.net/PDP/Audio/Headphones/WH-1000XM5/v1/mobile/1_m.jpg",
     price: "18000",
-    colors: ["#000000", "#a3a3a3"],
+    colors: ["#1f2937", "#d4d4d8"],
     category: {
       name: "Accessories",
       imageURL:
@@ -85,7 +85,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://i5.walmartimages.com/seo/Apple-Watch-Ultra-2-49-mm-titanium-smart-watch-Trail-Loop-nylon-weave-green-gray-band-size-S-M-64-GB-LTE-Wi-Fi-Bluetooth-UWB-4G-2-17-oz_96661365-998e-40ea-8fdb-5e6569ef3ff8.66ea753c3d6ee5d26e91d1e7182090a1.jpeg",
     price: "42000",
-    colors: ["#1f2933", "#9ca3af", "#f59e0b"],
+    colors: ["#374151", "#9ca3af", "#f59e0b"],
     category: {
       name: "Wearables",
       imageURL:
@@ -101,7 +101,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://cdn.mos.cms.futurecdn.net/HkdMToxijoHfz4JwUgfh3G-1920-80.jpg",
     price: "35000",
-    colors: ["#ffffff", "#1e40af"],
+    colors: ["#f8fafc", "#2563eb"],
     category: {
       name: "Gaming",
       imageURL:
@@ -117,7 +117,7 @@ export const productList: IProduct[] = [
     imageURL:
       "https://i5.walmartimages.com/seo/Canon-EOS-R6-Digital-camera-mirrorless-20-1-MP-Full-Frame-4K-60-fps-4-3x-optical-zoom-RF-24-105mm-F4-L-USM-lens-Wi-Fi-Bluetooth-black_e40bbfc6-303e-4f59-9e3c-d2ab35a167d2.6bf6d539b19e2599c22bbf45c0891fac.jpeg",
     price: "90000",
-    colors: ["#000000", "#374151"],
+    colors: ["#111827", "#4b5563"],
     category: {
       name: "Cameras",
       imageURL:
@@ -131,7 +131,7 @@ export const productList: IProduct[] = [
       "Hybrid gaming console with a vibrant OLED screen and versatile play modes.",
     imageURL: "https://images.unsplash.com/photo-1612810806695-30f7a8258391",
     price: "28000",
-    colors: ["#e11d48", "#0f172a", "#f8fafc"],
+    colors: ["#ef4444", "#38bdf8", "#facc15"],
     category: {
       name: "Gaming",
       imageURL: "https://images.unsplash.com/photo-1612810806695-30f7a8258391",
@@ -139,6 +139,36 @@ export const productList: IProduct[] = [
   },
 ];
 
+export const colors: string[] = [
+  "#FF5733",
+  "#33B5FF",
+  "#28A745",
+  "#FFC107",
+  "#6F42C1",
+  "#E83E8C",
+  "#20C997",
+  "#FD7E14",
+  "#0D6EFD",
+  "#198754",
+  "#DC3545",
+  "#212529",
+  "#F43F5E",
+  "#14B8A6",
+  "#A855F7",
+  "#22C55E",
+  "#EAB308",
+  "#06B6D4",
+  "#84CC16",
+  "#F97316",
+  "#8B5CF6",
+  "#EC4899",
+  "#10B981",
+  "#3B82F6",
+  "#EF4444",
+  "#6366F1",
+  "#F59E0B",
+  "#0EA5E9",
+];
 export const formInputsList: IFormInputs[] = [
   {
     label: "Product Title",
@@ -166,3 +196,7 @@ export const formInputsList: IFormInputs[] = [
     type: "text",
   },
 ];
+
+
+
+

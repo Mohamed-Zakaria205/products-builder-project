@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
-import { formInputsList, productList } from "./data";
+import { colors, formInputsList, productList } from "./data";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
 import type { IProduct } from "./interfaces";
 import { productValidation } from "./validation";
 import ErrorMessage from "./components/ErrorMessage";
+import CircleColor from "./components/CircleColor";
 function App() {
   const defaultProductObj: IProduct = {
     title: "",
@@ -17,15 +19,17 @@ function App() {
     category: { name: "", imageURL: "" },
   };
   //**------------STATE--------- */
+  const [products, setProducts] = useState<IProduct[]>(productList);
   const [isOpen, setIsOpen] = useState(false);
-  const [product, setProducts] = useState<IProduct>(defaultProductObj);
+  const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [errors, setErrors] = useState({
     title: "",
     description: "",
     price: "",
     imageURL: "",
   });
-
+  const [tempColors, setTempColors] = useState<string[]>([]);
+  console.log(tempColors);
   //**------------HANDLER--------- */
   const open = () => {
     setIsOpen(true);
@@ -37,13 +41,13 @@ function App() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProducts({ ...product, [name]: value });
+    setProduct({ ...product, [name]: value });
     setErrors({ ...errors, [name]: "" });
   };
 
   const onCancel = () => {
     console.log("cancel");
-    setProducts(defaultProductObj);
+    setProduct(defaultProductObj);
     close();
   };
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,11 +66,18 @@ function App() {
       return;
     }
 
-    console.log("Send Product To Server");
+    setProducts((prev) => [
+      { ...product, colors: tempColors, id: uuid() },
+      ...prev,
+    ]);
+
+    setProduct(defaultProductObj);
+    setTempColors([]);
+    close();
   };
 
   //**------------RENDER--------- */
-  const renderProducts = productList.map((product) => (
+  const renderProducts = products.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
 
@@ -86,6 +97,21 @@ function App() {
       <ErrorMessage msg={errors[input.name]} />
     </div>
   ));
+
+  const renderColors = colors.map((color) => (
+    <CircleColor
+      key={color}
+      color={color}
+      onClick={() => {
+        if (tempColors.includes(color)) {
+          setTempColors((prev) => prev.filter((c) => c !== color));
+        } else {
+          setTempColors((prev) => [...prev, color]);
+        }
+      }}
+    />
+  ));
+
   return (
     <>
       <main className="container mx-auto p-4 md:p-8 lg:p-16 xl:p-24 flex flex-col items-center">
@@ -119,6 +145,21 @@ function App() {
               </Button>
             </div>
           </form>
+
+          <div className="flex flex-wrap items-center justify-start space-x-2 mt-4">
+            {renderColors}
+          </div>
+          <div className="flex flex-wrap items-center justify-start space-x-2 mt-4">
+            {tempColors.map((color) => (
+              <span
+                key={color}
+                className=" px-1 py-1 rounded-md mb-1 "
+                style={{ backgroundColor: color }}
+              >
+                {color}
+              </span>
+            ))}
+          </div>
         </Modal>
       </main>
     </>

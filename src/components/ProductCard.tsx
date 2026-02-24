@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const ProductCard = ({ product }: IProps) => {
-  const { description, title, price, imageURL, colors } = product;
+  const { description, title, price, imageURL, colors, category } = product;
 
   //**------------RENDER--------- */
   const renderColors = colors.map((color) => (
@@ -33,8 +33,8 @@ const ProductCard = ({ product }: IProps) => {
       <div className="flex items-center justify-between">
         <span>${price}</span>
         <Image
-          imageURL={imageURL}
-          alt={title}
+          imageURL={category.imageURL}
+          alt={category.name}
           className="h-10 w-10 rounded-full object-cover"
         />
       </div>

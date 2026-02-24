@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
-import type { IProduct } from "../interfaces";
-import type { IFormInputs } from "../interfaces";
+
+import type { IFormInputs, ICategory, IProduct } from "../interfaces";
 
 export const productList: IProduct[] = [
   {
@@ -139,6 +139,44 @@ export const productList: IProduct[] = [
   },
 ];
 
+export const categories: ICategory[] = [
+  {
+    id: uuid(),
+    name: "Clothes",
+    imageURL: "https://images.unsplash.com/photo-1445205170230-053b83016050",
+  },
+  {
+    id: uuid(),
+    name: "Shoes",
+    imageURL: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+  },
+  {
+    id: uuid(),
+    name: "Electronics",
+    imageURL: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+  },
+  {
+    id: uuid(),
+    name: "Furniture",
+    imageURL: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc",
+  },
+  {
+    id: uuid(),
+    name: "Beauty",
+    imageURL: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9",
+  },
+  {
+    id: uuid(),
+    name: "Sports",
+    imageURL: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+  },
+  {
+    id: uuid(),
+    name: "Books",
+    imageURL: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d",
+  },
+];
+
 export const colors: string[] = [
   "#FF5733",
   "#33B5FF",
@@ -196,7 +234,3 @@ export const formInputsList: IFormInputs[] = [
     type: "text",
   },
 ];
-
-
-
-

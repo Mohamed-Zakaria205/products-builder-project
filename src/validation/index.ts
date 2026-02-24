@@ -3,20 +3,27 @@ export const productValidation = (product: {
   description: string;
   price: string;
   imageURL: string;
+  colors: string[];
 }) => {
   const errors: {
     title: string;
     description: string;
     price: string;
     imageURL: string;
+    colors: string;
   } = {
     title: "",
     description: "",
     price: "",
     imageURL: "",
+    colors: "",
   };
 
   const validUrl = /^(ftp|http|https):\/\/[^ "]+$/.test(product.imageURL);
+
+  if (product.colors.length === 0) {
+    errors.colors = "At least one color must be selected";
+  }
 
   if (
     !product.title.trim() ||

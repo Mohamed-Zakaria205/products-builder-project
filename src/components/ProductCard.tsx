@@ -5,9 +5,11 @@ import CircleColor from "./CircleColor";
 import { txtSlicer } from "../utils/functions";
 interface IProps {
   product: IProduct;
+  setProductToEdit: (product: IProduct) => void;
+  openEditModal: () => void;
 }
 
-const ProductCard = ({ product }: IProps) => {
+const ProductCard = ({ product, setProductToEdit, openEditModal }: IProps) => {
   const { description, title, price, imageURL, colors, category } = product;
 
   //**------------RENDER--------- */
@@ -15,6 +17,12 @@ const ProductCard = ({ product }: IProps) => {
     <CircleColor key={color} color={color} />
   ));
 
+  //**------------HANDLER--------- */
+
+  const onEdit = () => {
+    setProductToEdit(product);
+    openEditModal();
+  };
   return (
     <div className=" max-w-sm mx-auto md:max-w-lg md:mx-0 border border-gray-200 rounded-md p-2 flex flex-col">
       <Image
@@ -49,7 +57,7 @@ const ProductCard = ({ product }: IProps) => {
         >
           Delete
         </Button>
-        <Button className="bg-indigo-600" width="w-full">
+        <Button className="bg-indigo-600" width="w-full" onClick={onEdit}>
           Edit
         </Button>
       </div>

@@ -26,6 +26,7 @@ function App() {
   const [product, setProduct] = useState<IProduct>(defaultProductObj);
   const [productToEdit, setProductToEdit] =
     useState<IProduct>(defaultProductObj);
+  const [productToEditIdx, setProductToEditIdx] = useState<number>(0);
   const [errors, setErrors] = useState({
     title: "",
     description: "",
@@ -80,7 +81,7 @@ function App() {
     close();
   };
   const onEditCancel = () => {
-    setProduct(defaultProductObj);
+    setProductToEdit(defaultProductObj);
     setTempColors([]);
     setErrors({
       title: "",
@@ -103,11 +104,8 @@ function App() {
       colors: tempColors,
     });
 
-    const hasErrorMsg =
-      Object.values(errors).some((error) => error == "") &&
-      Object.values(errors).every((error) => error == "");
-
-    if (!hasErrorMsg) {
+    const hasErrorMsg = Object.values(errors).some(Boolean);
+    if (hasErrorMsg) {
       setErrors(errors);
       return;
     }
@@ -130,31 +128,33 @@ function App() {
     e.preventDefault();
 
     const { title, description, price, imageURL } = productToEdit;
+    const colors = tempColors.length ? tempColors : productToEdit.colors;
     const errors = productValidation({
       title,
       description,
       price,
       imageURL,
-      colors: tempColors,
+      colors,
     });
 
-    const hasErrorMsg =
-      Object.values(errors).some((error) => error == "") &&
-      Object.values(errors).every((error) => error == "");
-
-    if (!hasErrorMsg) {
+    const hasErrorMsg = Object.values(errors).some(Boolean);
+    if (hasErrorMsg) {
       setErrors(errors);
       return;
     }
-
+    const updatedProducts = [...products];
+    updatedProducts[productToEditIdx] = { ...productToEdit, colors };
+    setProducts(updatedProducts);
     setProductToEdit(defaultProductObj);
     setTempColors([]);
     closeEditModal();
   };
 
   //**------------RENDER--------- */
-  const renderProducts = products.map((product) => (
+  const renderProducts = products.map((product, idx) => (
     <ProductCard
+      idx={idx}
+      setProductToEditIdx={setProductToEditIdx}
       key={product.id}
       product={product}
       setProductToEdit={setProductToEdit}
@@ -229,7 +229,7 @@ function App() {
         <div className="m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4  rounded-md ">
           {renderProducts}
         </div>
-        //*------------Add Modal--------- */
+        {/*------------Add Modal--------- */}
         <Modal isOpen={isOpen} close={close} title="ADD A NEW PRODUCT">
           <form className="space-y-3" onSubmit={submitHandler}>
             {renderFormInputList}
@@ -273,7 +273,7 @@ function App() {
             </div>
           </form>
         </Modal>
-        //*------------Edit Modal--------- */
+        {/*------------Edit Modal--------- */}
         <Modal
           isOpen={isOpenEditModal}
           close={closeEditModal}

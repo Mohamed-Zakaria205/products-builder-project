@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import toast, { Toaster } from "react-hot-toast";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import { categories, colors, formInputsList, productList } from "./data";
@@ -18,7 +19,7 @@ function App() {
     price: "",
     imageURL: "",
     colors: [],
-    category: { name: "", imageURL: "" },
+    category: { id: "", name: "", imageURL: "" },
   };
   //**------------STATE--------- */
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +40,7 @@ function App() {
     categories[0],
   );
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
-
+  const [isOPenConfirmModal, setIsOpenConfirmModal] = useState(false);
   console.log(productToEdit);
   //**------------HANDLER--------- */
   const open = () => {
@@ -55,6 +56,13 @@ function App() {
 
   const closeEditModal = () => {
     setIsOpenEditModal(false);
+  };
+
+  const openRemoveModal = () => {
+    setIsOpenConfirmModal(true);
+  };
+  const closeConfirmModal = () => {
+    setIsOpenConfirmModal(false);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +100,16 @@ function App() {
     });
     closeEditModal();
   };
+
+  const removeProductHandler = () => {
+    const filtered = products.filter(
+      (product) => product.id !== productToEdit.id,
+    );
+    setProducts(filtered);
+    closeConfirmModal();
+    setProductToEdit(defaultProductObj);
+    toast.success("Product removed successfully");
+  };
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -123,12 +141,13 @@ function App() {
     setProduct(defaultProductObj);
     setTempColors([]);
     close();
+    toast.success("Product added successfully");
   };
   const submitEditHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const { title, description, price, imageURL } = productToEdit;
-    const colors = tempColors.length ? tempColors : productToEdit.colors;
+    // const colors = tempColors.length ? tempColors : productToEdit.colors;
     const errors = productValidation({
       title,
       description,
@@ -143,11 +162,15 @@ function App() {
       return;
     }
     const updatedProducts = [...products];
-    updatedProducts[productToEditIdx] = { ...productToEdit, colors };
+    updatedProducts[productToEditIdx] = {
+      ...productToEdit,
+      colors: tempColors.concat(productToEdit.colors),
+    };
     setProducts(updatedProducts);
     setProductToEdit(defaultProductObj);
     setTempColors([]);
     closeEditModal();
+    toast.success("Product updated successfully");
   };
 
   //**------------RENDER--------- */
@@ -159,6 +182,7 @@ function App() {
       product={product}
       setProductToEdit={setProductToEdit}
       openEditModal={openEditModal}
+      openRemoveModal={openRemoveModal}
     />
   ));
 
@@ -292,10 +316,12 @@ function App() {
               "edit-imageURL",
               "imageURL",
             )}
-            {/* <div>
+            <div>
               <Select
-                selected={selectedCategory}
-                setSelected={setSelectedCategory}
+                selected={productToEdit.category}
+                setSelected={(value) =>
+                  setProductToEdit({ ...productToEdit, category: value })
+                }
               />
             </div>
             <div className="flex flex-wrap items-center justify-start space-x-2 mt-4">
@@ -304,7 +330,7 @@ function App() {
             {errors.colors && <ErrorMessage msg={errors.colors} />}
 
             <div className="flex flex-wrap items-center justify-start space-x-2 mt-4">
-              {tempColors.map((color) => (
+              {tempColors.concat(productToEdit.colors).map((color) => (
                 <span
                   key={color}
                   className=" px-1 py-1 rounded-md mb-1 "
@@ -313,7 +339,7 @@ function App() {
                   {color}
                 </span>
               ))}
-            </div> */}
+            </div>
             <div className="flex items-center space-x-3 text-white ">
               <Button
                 className="bg-indigo-600 hover:bg-indigo-400"
@@ -331,6 +357,32 @@ function App() {
             </div>
           </form>
         </Modal>
+
+        {/*------------Remove Modal--------- */}
+        <Modal
+          isOpen={isOPenConfirmModal}
+          close={closeConfirmModal}
+          title="Are you sure you want to remove this product?"
+          description="This action cannot be undone. The product will be permanently removed from your inventory."
+        >
+          <div className="flex items-center space-x-3 text-white ">
+            <Button
+              className="bg-red-700 hover:bg-red-400"
+              width="w-full"
+              onClick={removeProductHandler}
+            >
+              Yes, Remove
+            </Button>
+            <Button
+              className="bg-gray-400 hover:bg-gray-200 hover:text-black"
+              width="w-full"
+              onClick={onCancel}
+            >
+              Cancel
+            </Button>
+          </div>
+        </Modal>
+        <Toaster />
       </main>
     </>
   );

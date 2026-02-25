@@ -2,13 +2,14 @@ import Image from "./Image";
 import type { IProduct } from "../interfaces";
 import Button from "./ui/Button";
 import CircleColor from "./CircleColor";
-import { txtSlicer } from "../utils/functions";
+import { txtSlicer, numberWithCommas } from "../utils/functions";
 interface IProps {
   product: IProduct;
   setProductToEdit: (product: IProduct) => void;
   setProductToEditIdx: (idx: number) => void;
   idx: number;
   openEditModal: () => void;
+  openRemoveModal: () => void;
 }
 
 const ProductCard = ({
@@ -17,6 +18,7 @@ const ProductCard = ({
   setProductToEditIdx,
   idx,
   openEditModal,
+  openRemoveModal,
 }: IProps) => {
   const { description, title, price, imageURL, colors, category } = product;
 
@@ -31,6 +33,11 @@ const ProductCard = ({
     setProductToEdit(product);
     setProductToEditIdx(idx);
     openEditModal();
+  };
+
+  const onRemove = () => {
+    setProductToEdit(product);
+    openRemoveModal();
   };
   return (
     <div className=" max-w-sm mx-auto md:max-w-lg md:mx-0 border border-gray-200 rounded-md p-2 flex flex-col">
@@ -48,26 +55,34 @@ const ProductCard = ({
       </div>
 
       <div className="flex items-center justify-between">
-        <span>${price}</span>
-        <Image
-          imageURL={category.imageURL}
-          alt={category.name}
-          className="h-10 w-10 rounded-full object-cover"
-        />
+        <span className="text-indigo-600 font-semibold text-lg">
+          ${numberWithCommas(price)}
+        </span>
+
+        <div className="flex items-center space-x-2">
+          <span className="text-md">{category.name}</span>
+          <Image
+            imageURL={category.imageURL}
+            alt={category.name}
+            className="h-10 w-10 rounded-full object-cover"
+          />
+        </div>
       </div>
 
       <div className="flex items-center justify-between text-white space-x-2 mt-4">
         <Button
-          className="bg-red-600"
+          className="bg-indigo-700 hover:bg-indigo-500"
           width="w-full"
-          onClick={() => {
-            console.log("Clicked");
-          }}
+          onClick={onEdit}
         >
-          Delete
-        </Button>
-        <Button className="bg-indigo-600" width="w-full" onClick={onEdit}>
           Edit
+        </Button>
+        <Button
+          className="bg-red-700 hover:bg-red-500"
+          width="w-full"
+          onClick={onRemove}
+        >
+          Remove
         </Button>
       </div>
     </div>

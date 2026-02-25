@@ -1,4 +1,5 @@
 import {
+  Description as DialogDescription,
   Dialog,
   DialogBackdrop,
   DialogPanel,
@@ -10,9 +11,10 @@ interface IProps {
   isOpen: boolean;
   close: () => void;
   title?: string;
+  description?: string;
   children: ReactNode;
 }
-const Modal = ({ isOpen, close, title, children }: IProps) => {
+const Modal = ({ isOpen, close, title, description, children }: IProps) => {
   return (
     <>
       <Dialog
@@ -24,7 +26,7 @@ const Modal = ({ isOpen, close, title, children }: IProps) => {
       >
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
-            <DialogBackdrop className="fixed inset-0 bg-black/50" />
+            <DialogBackdrop className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
             <DialogPanel
               transition
               className="w-full max-w-md rounded-xl bg-white p-6  duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0  z-50"
@@ -32,10 +34,15 @@ const Modal = ({ isOpen, close, title, children }: IProps) => {
               {title && (
                 <DialogTitle
                   as="h3"
-                  className="text-base/7 font-medium text-black"
+                  className="text-2xl font-semibold text-black mb-3"
                 >
                   {title}
                 </DialogTitle>
+              )}
+              {description && (
+                <DialogDescription as="p" className="text-md text-gray-600">
+                  {description}
+                </DialogDescription>
               )}
 
               <div className="mt-4">{children}</div>

@@ -65,16 +65,19 @@ function App() {
     setIsOpenConfirmModal(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProduct({ ...product, [name]: value });
-    setErrors({ ...errors, [name]: "" });
-  };
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setProductToEdit({ ...productToEdit, [name]: value });
-    setErrors({ ...errors, [name]: "" });
-  };
+    setProduct((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
+  }, []);
+  const handleEditChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setProductToEdit((prev) => ({ ...prev, [name]: value }));
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    },
+    [],
+  );
 
   const onCancel = () => {
     setProduct(defaultProductObj);

@@ -5,7 +5,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { type ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 
 interface IProps {
   isOpen: boolean;
@@ -54,4 +54,4 @@ const Modal = ({ isOpen, close, title, description, children }: IProps) => {
   );
 };
 
-export default Modal;
+export default memo(Modal);

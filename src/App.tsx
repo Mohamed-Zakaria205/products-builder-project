@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { v4 as uuid } from "uuid";
 import toast, { Toaster } from "react-hot-toast";
 import ProductCard from "./components/ProductCard";
@@ -50,17 +50,17 @@ function App() {
   const close = () => {
     setIsOpen(false);
   };
-  const openEditModal = () => {
+  const openEditModal = useCallback(() => {
     setIsOpenEditModal(true);
-  };
+  }, []);
 
   const closeEditModal = () => {
     setIsOpenEditModal(false);
   };
 
-  const openRemoveModal = () => {
+  const openRemoveModal = useCallback(() => {
     setIsOpenConfirmModal(true);
-  };
+  }, []);
   const closeConfirmModal = () => {
     setIsOpenConfirmModal(false);
   };
